@@ -20,11 +20,8 @@ class LastGames extends StatelessWidget {
   Widget build(BuildContext context) {
 
      return Column(
-
        crossAxisAlignment: CrossAxisAlignment.start,
-
-       textDirection: TextDirection.rtl,
-
+      // textDirection: TextDirection.rtl,
        // direction: Axis.vertical,
        // mainAxisAlignment: mainAxisAlignment,
        // mainAxisSize: mainAxisSize,
@@ -32,10 +29,7 @@ class LastGames extends StatelessWidget {
        // textDirection: textDirection, +++++++++++++++
        // verticalDirection: verticalDirection,
        // textBaseline: textBaseline,
-
        children: [
-
-
          Center(
            child: Padding(padding: const EdgeInsets.only(top: 30, bottom: 30),
            child: Text('جديد الألعاب', style: TextStyle(
@@ -45,11 +39,11 @@ class LastGames extends StatelessWidget {
          ),
 
 
-
          gamz.isEmpty ? Container(
            child: Center(child: Text("جارٍ التحميل...")),
          ) : ListView.separated(
-             scrollDirection: Axis.vertical,
+             physics: NeverScrollableScrollPhysics(), // important
+             padding: EdgeInsets.all(15),
              shrinkWrap: true, //important
              itemBuilder: (BuildContext context, int index){
                final Games g = gamz[index];
