@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 
 class NewGamesBloc extends ChangeNotifier{
   int _page = 1;
-  int _postAmountPerLoad = 10;
+  int _postAmountPerLoad = 5;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Games> _games = [];
@@ -23,8 +23,8 @@ class NewGamesBloc extends ChangeNotifier{
       List decodedData = jsonDecode(response.body);
       _games.addAll(decodedData.map((m) => Games.fromJson(m)).toList());
       var a =  _games.length;
-      print("Data Received! $a");
-      print("Data ----- -- +++ === $decodedData");
+      // print("Data Received! $a");
+      // print("Data ----- -- +++ === $decodedData");
     } else {
       print("Error Getting Data!");
     }
