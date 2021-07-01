@@ -36,6 +36,9 @@ dev_dependencies:
   http: ^0.13.3 #https://pub.dev/packages/http/example
   provider: ^5.0.0 #https://pub.dev/packages/provider/example
   cached_network_image: ^3.0.0 #https://pub.dev/packages/cached_network_image/example
+  html_unescape: ^2.0.0
+  #flutter_widget_from_html: ^0.6.1 #parser
+  webview_flutter: ^2.0.8 #display the html5 games
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
