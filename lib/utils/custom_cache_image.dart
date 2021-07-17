@@ -1,13 +1,8 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CustomCacheImage extends StatelessWidget{
-
   final String? img;
-
   const CustomCacheImage({
     required this.img
   });

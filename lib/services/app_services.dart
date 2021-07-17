@@ -1,26 +1,12 @@
-
-
-
-import 'dart:io';
+import 'dart:async';
+import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'package:cnargames/config/config.dart';
 
 class AppServices {
 
-  // check for connectivity
-  Future<bool?> checkInternet() async{
-    bool? internet;
-    try{
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty){
-        internet = true;
-      }
-    } on SocketException catch (_){
-      internet = false;
-    }
-    return internet;
+  Future openEmailSupport() async {
+    await urlLauncher.launch(
+        'mailto:${Config().supportEmail}?subject=About ${Config().appName} App&body=');
   }
-
-
-
-
 
 }

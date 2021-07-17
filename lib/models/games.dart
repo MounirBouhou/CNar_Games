@@ -22,7 +22,7 @@ class Games {
     return Games(
         id:json['id'] ?? 0,
         title:json['title']['rendered'] ?? '',
-        content:json['content']['rendered'] != "" ? json['content']['rendered'] : "لعبة" + json['title']['rendered'],
+        content:json['content']['rendered'] != "" ? json['content']['rendered'] : "لعبة " + json['title']['rendered'],
         image:json['custom']['featured_image'] != "" ? json['custom']['featured_image'] : WpConfig().randomGameFeaturedImage,
         game:json['custom']['mabp_swf_url'] ?? '',
         width:json['custom']['mabp_width'] ?? '',
