@@ -1,34 +1,60 @@
 
 
 import 'dart:convert';
-
 import 'package:cnargames/config/wp_config.dart';
 import 'package:cnargames/models/games.dart';
-import 'package:cnargames/utils/snacbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class NewGamesBloc extends ChangeNotifier{
+
+  int _postAmountPerLoad = 10;
+
   int _page = 1;
-  int _postAmountPerLoad = 5;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  int get page => _page;
 
   List<Games> _games = [];
   List<Games> get games => _games;
 
+  bool _loading = false;
+  bool get loading => _loading;
+
   Future getGames() async {
-    var response = await http.get(Uri.parse("${WpConfig().webURL}/wp-json/wp/v2/posts/?page=$_page&per_page=$_postAmountPerLoad&_fields=id,date,title,content,custom,link"));
+    var response = await http.get(Uri.parse("${WpConfig().webURL}/wp-json/wp/v2/posts/?page=$_page&per_page=$_postAmountPerLoad&tags=1126&_embed=true&_fields=id,date,title,content,custom,link"));
     if (response.statusCode == 200){
       List decodedData = jsonDecode(response.body);
       _games.addAll(decodedData.map((m) => Games.fromJson(m)).toList());
-      var a =  _games.length;
-      // print("Data Received! $a");
-      // print("Data ----- -- +++ === $decodedData");
+      int gl = _games.length;
+      print('Total Games: $gl ');
     } else {
-      print("Error Getting Data!");
+      print("Error Getting Games!");
     }
    notifyListeners();
+  }
+
+  clearGames(){
+    _games.clear();
+    _page = 1;
+    notifyListeners();
+  }
+
+  setLoading (bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
+  pageIncrement(){
+    _page += 1;
+    notifyListeners();
+  }
+
+  onReload() async{
+    _games.clear();
+    _page = 1;
+    notifyListeners();
+    getGames();
+    print("onReload");
   }
 
 
