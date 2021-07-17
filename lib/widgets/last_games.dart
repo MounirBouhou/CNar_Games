@@ -1,64 +1,98 @@
-
-
 import 'package:cnargames/cards/card_game.dart';
+import 'package:cnargames/colors/custom_colors.dart';
 import 'package:cnargames/models/games.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LastGames extends StatelessWidget {
-
   final List<Games> gamz;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const LastGames ({
-    Key? key,
-    required this.gamz, required this.scaffoldKey
-  }) : super(key: key);
-
+  const LastGames({Key? key, required this.gamz, required this.scaffoldKey})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        gamz.isEmpty
+            ? Container(
+          height: MediaQuery.of(context).size.height - 60,
+              child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(strokeWidth: 2,),
+                  SizedBox(height: 15,),
+                  Text("جار التحميل...",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: cColors().gray
+                    ),),
+                ],
 
-     return Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-      // textDirection: TextDirection.rtl,
-       // direction: Axis.vertical,
-       // mainAxisAlignment: mainAxisAlignment,
-       // mainAxisSize: mainAxisSize,
-       // crossAxisAlignment: crossAxisAlignment, ++++++++
-       // textDirection: textDirection, +++++++++++++++
-       // verticalDirection: verticalDirection,
-       // textBaseline: textBaseline,
-       children: [
-         Center(
-           child: Padding(padding: const EdgeInsets.only(top: 30, bottom: 30),
-           child: Text('جديد الألعاب', style: TextStyle(
-             letterSpacing: -0.1, wordSpacing: 1, fontWeight: FontWeight.w100, fontSize: 18
-           )),
-           ),
-         ),
-
-
-         gamz.isEmpty ? Container(
-           child: Center(child: Text("جارٍ التحميل...")),
-         ) : ListView.separated(
-             physics: NeverScrollableScrollPhysics(), // important
-             padding: EdgeInsets.all(15),
-             shrinkWrap: true, //important
-             itemBuilder: (BuildContext context, int index){
-               final Games g = gamz[index];
-               print("ggggggggggg = $g");
-               return CardGame(heroTag: '${g.id}', scaffoldKey: scaffoldKey, games: g);
-             },
-             separatorBuilder: (context, index) => SizedBox(
-               height: 15,
-             ),
-             itemCount: gamz.length
-         ),
-
-       ],
-
-
-     );
+              ),
+            )
+            : Column(
+                children: [
+                  ListTile(
+                    //tileColor: cColors().yellow,
+                    contentPadding: EdgeInsets.only(right: 20, left: 20),
+                    leading: Container(
+                      //alignment: Alignment.center,
+                        padding: EdgeInsets.all(8),
+                        decoration: new BoxDecoration(
+                          color: cColors().gray,
+                          shape: BoxShape.circle,
+                         // borderRadius: new BorderRadius.all(Radius.circular(100)),
+                        ),
+                        child: Icon(
+                          CupertinoIcons.game_controller_solid,
+                          size: 22,
+                          color: cColors().pinkDark,
+                        )),
+                    horizontalTitleGap: 15,
+                    enabled: false,
+                    title: Text(
+                      'جديد الألعاب',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: cColors().gray
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      // AppService().openLinkWithCustomTab(context, WpConfig().websiteUrl);
+                    },
+                  ),
+                  Divider(
+                    color: cColors().gray,
+                    thickness: 3,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  ListView.separated(
+                    physics: NeverScrollableScrollPhysics(), // important
+                    padding: EdgeInsets.all(15),
+                    shrinkWrap: true, //important
+                    itemCount: gamz.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final g = gamz[index];
+                      return new CardGame(
+                          heroTag: '${g.id}',
+                          scaffoldKey: scaffoldKey,
+                          games: g);
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 15,
+                    ),
+                  ),
+                ],
+              ),
+      ],
+    );
   }
 }
