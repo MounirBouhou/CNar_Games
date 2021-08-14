@@ -13,15 +13,12 @@ class MyApp extends StatelessWidget{
 
   Widget build(BuildContext context) {
 
-
     return MultiProvider(
-
       providers: [
               ChangeNotifierProvider<NewGamesBloc>(create: (context) => NewGamesBloc()),
               ChangeNotifierProvider<ConnectivityProvider>(create: (_) => ConnectivityProvider()),
               //ChangeNotifierProvider<AdsBloc>(create: (_) => AdsBloc()),
       ],
-
 
       child: MaterialApp(
            debugShowCheckedModeBanner: false,
@@ -33,8 +30,6 @@ class MyApp extends StatelessWidget{
 
            home: SplashPage(),
       ),
-
-
          );
         }
 

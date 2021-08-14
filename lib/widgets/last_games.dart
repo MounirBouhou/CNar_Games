@@ -4,6 +4,8 @@ import 'package:cnargames/models/games.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'loading.dart';
+
 class LastGames extends StatelessWidget {
   final List<Games> gamz;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -18,23 +20,7 @@ class LastGames extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         gamz.isEmpty
-            ? Container(
-          height: MediaQuery.of(context).size.height - 60,
-              child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(strokeWidth: 2,),
-                  SizedBox(height: 15,),
-                  Text("جار التحميل...",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: cColors().gray
-                    ),),
-                ],
-
-              ),
-            )
+            ? loading(context)
             : Column(
                 children: [
                   ListTile(
@@ -74,14 +60,15 @@ class LastGames extends StatelessWidget {
                     indent: 20,
                     endIndent: 20,
                   ),
+
                   ListView.separated(
                     physics: NeverScrollableScrollPhysics(), // important
                     padding: EdgeInsets.all(15),
                     shrinkWrap: true, //important
                     itemCount: gamz.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final g = gamz[index];
-                      return new CardGame(
+                      var g = gamz[index];
+                      return CardGame(
                           heroTag: '${g.id}',
                           scaffoldKey: scaffoldKey,
                           games: g);

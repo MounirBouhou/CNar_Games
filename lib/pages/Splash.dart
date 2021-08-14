@@ -15,7 +15,7 @@ class SplashPage extends StatefulWidget{
 class _SplashPageState extends State<SplashPage>{
 
   Future _afterSplash() async {
-    Future.delayed(Duration(milliseconds: 1000)).then((value) => _goToHomePage());
+    Future.delayed(Duration(milliseconds: 2000)).then((value) => _goToHomePage());
   }
 
   void _goToHomePage() {

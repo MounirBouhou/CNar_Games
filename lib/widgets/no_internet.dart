@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:cnargames/colors/custom_colors.dart';
+import 'package:cnargames/config/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,6 @@ class NoInternet extends StatefulWidget {
 }
 
 class _NoInternet extends State<NoInternet> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,7 @@ class _NoInternet extends State<NoInternet> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.8,
-              child: Image.asset(
-                "assets/images/noNet.png",
+              child: Image.asset(Config().netOff,
                 fit: BoxFit.fitWidth,
                 width: 150,
                 alignment: Alignment.bottomLeft,

@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:html_unescape/html_unescape.dart';
+//import 'package:html/parser.dart';
 
 class CardGame extends StatelessWidget{
    const CardGame ({
@@ -24,6 +25,13 @@ class CardGame extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      // child: new Container(
+      //   height: 120.0,
+      //   margin: const EdgeInsets.symmetric(
+      //     vertical: 16.0,
+      //     horizontal: 24.0
+      //   ),
+
         child: new Stack(
           children: [
 
