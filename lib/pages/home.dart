@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'package:cnargames/blocs/new_games_bloc.dart';
 import 'package:cnargames/colors/custom_colors.dart';
-import 'package:cnargames/services/app_services.dart';
-import 'package:cnargames/services/connectivity_provider.dart';
 import 'package:cnargames/utils/snacbar.dart';
 import 'package:cnargames/widgets/drawer.dart';
 import 'package:cnargames/widgets/last_games.dart';
-import 'package:cnargames/widgets/loading.dart';
-import 'package:cnargames/widgets/no_internet.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,17 +28,6 @@ class _HomeState extends State<Home> {
     // Scroller
     _controller = ScrollController(initialScrollOffset: 0.0, keepScrollOffset: true);
     _controller!.addListener((_scrollListener));
-
-    // _controller!.addListener(() {
-    //       setState(() {
-    //         if (_controller!.offset >= 400 ){
-    //           _showBackToTopButton = true;
-    //         } else {
-    //           _showBackToTopButton = false;
-    //         }
-    //       });
-    //     }
-    // );
 
     Future.delayed(Duration(milliseconds: 1)).then((value) => _onStart());
     // next feature AdMob
@@ -129,108 +114,10 @@ class _HomeState extends State<Home> {
     _controller!.animateTo(1, duration: Duration(seconds: 2), curve: Curves.linearToEaseOut);
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   // return Consumer<ConnectivityProvider>(
-  //   //     builder: (c, model, child) {
-  //   //       if (model.isOnline) {
-  //           return new Scaffold(
-  //               key: scaffoldKey,
-  //               backgroundColor: cColors().blueDark,
-  //               endDrawer: CustomDrawer(),
-  //               appBar: AppBar(
-  //                 actions: <Widget>[
-  //                   Padding(
-  //                       padding: EdgeInsets.only(right: 25.0),
-  //                       child: IconButton(
-  //                         onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
-  //                         icon: Icon(
-  //                           Icons.menu,
-  //                           color: cColors().gray,
-  //                           size: 30.0,
-  //                         ),
-  //                       )),
-  //                 ],
-  //                 //title: Text("CN"),
-  //                 elevation: 0,
-  //               ),
-  //
-  //               body: Directionality(
-  //                   textDirection: TextDirection.rtl,
-  //                   child: SafeArea(
-  //                     child: RefreshIndicator(
-  //                         onRefresh: () async => await _onRefresh(),
-  //                         child: SingleChildScrollView(
-  //                           physics: ClampingScrollPhysics(),
-  //                           controller: _controller, // +++
-  //                           child: Column(
-  //                             crossAxisAlignment: CrossAxisAlignment.center,
-  //                             children: [
-  //                               FutureBuilder(
-  //                                   future:  getGames,
-  //                                   builder: (BuildContext c, AsyncSnapshot<dynamic> snapshot) {
-  //                                     switch (snapshot.connectionState) {
-  //
-  //                                       case ConnectionState.none:
-  //                                         return Center(
-  //                                           child: Text("ConnectionNone"),
-  //                                         );
-  //
-  //                                       case ConnectionState.waiting:
-  //                                         return Center(
-  //                                           child: loading(context)
-  //                                         );
-  //
-  //                                       default:
-  //                                         if (snapshot.hasError)
-  //                                           return new FutureBuilder(
-  //                                             future: getGames = context.read<NewGamesBloc>().getGames() ,
-  //                                             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-  //                                               return Padding(
-  //                                                 padding: const EdgeInsets.all(8.0),
-  //                                                 child: Column(
-  //                                                   children: [
-  //                                                     LastGames(
-  //                                                         gamz: context.watch<NewGamesBloc>().games,
-  //                                                         scaffoldKey: scaffoldKey),
-  //                                                     loadMoreGamesWidget(),
-  //                                                   ],
-  //                                                 ),
-  //                                               );
-  //                                             },
-  //                                           );
-  //                                         else
-  //                                           return Padding(
-  //                                             padding: const EdgeInsets.all(8.0),
-  //                                             child: Column(
-  //                                               children: [
-  //                                                 LastGames(
-  //                                                     gamz: context.watch<NewGamesBloc>().games,
-  //                                                     scaffoldKey: scaffoldKey),
-  //                                                 loadMoreGamesWidget(),
-  //                                               ],
-  //                                             ),
-  //                                           );
-  //                                     }
-  //                                   }
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         )),
-  //
-  //                   ))
-  //           );
-  //         // } else {
-  //         //   return NoInternet();
-  //         // }
-  //       }
-  //   //);
-  // //}
-
   Future _onStart() async {
     var cr = await (Connectivity().checkConnectivity());
     if (cr == ConnectivityResult.wifi || cr == ConnectivityResult.mobile) {
-      context.read<NewGamesBloc>().getGames();
+      context.read<NewGamesBloc>().getTag().then((value) => context.read<NewGamesBloc>().getGames());
     } else {
       openSnacbar(scaffoldKey, "لا يوجد اتصال بالشبكة!", cColors().pinkDark,
           CupertinoIcons.wifi_slash);
@@ -243,7 +130,7 @@ class _HomeState extends State<Home> {
     // ConnectivityProvider().updateConnectionStatus().then((hasInternet) {
     //   if (hasInternet!){
     if (cr == ConnectivityResult.wifi || cr == ConnectivityResult.mobile) {
-      context.read<NewGamesBloc>().onReload();
+      context.read<NewGamesBloc>().getTag().then((value) => context.read<NewGamesBloc>().onReload());
     } else {
       openSnacbar(scaffoldKey, "لا يوجد اتصال بالشبكة!", cColors().pinkDark,
           CupertinoIcons.wifi_slash);
