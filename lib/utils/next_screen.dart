@@ -9,7 +9,8 @@ void nextScreen(context, page){
 }
 
 void nextScreenReplace(context, page){
-  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => page));
+  Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context) => page));
 }
 
 void nextScreenPopup (context, page){
@@ -17,4 +18,9 @@ void nextScreenPopup (context, page){
       fullscreenDialog: true,
       builder: (context) => page),
   );
+}
+
+void nextScreenCloseOthers (context, page){
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+      builder: (context) => page), (route) => false);
 }

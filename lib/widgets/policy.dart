@@ -36,7 +36,6 @@ class _Policy extends State<Policy> {
                     data: snapshot.data,
                   );
                 }
-
                 return Center(child: CircularProgressIndicator(),);
               },
 

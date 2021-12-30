@@ -35,6 +35,23 @@ class Games {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title']['rendered'] = this.title;
+    data['content']['rendered'] = this.content;
+    data['custom']['featured_image'] = this.image;
+    data['custom']['mabp_swf_url'] = this.game;
+    data['custom']['mabp_width'] = this.width;
+    data['custom']['mabp_height'] = this.height;
+    data['custom']['views']  = this.views;
+    data['custom']['ratings_average'] = this.rate;
+    data['custom']['categories'][0]['name'] = this.category;
+    data['custom']['categories'][0]['cat_ID'] = this.catId;
+    data['date'] = this.date;
+
+    return data;
+  }
 
 
 }

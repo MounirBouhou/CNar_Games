@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 class ConnectivityProvider extends ChangeNotifier{
 
   Connectivity _connectivity = new Connectivity();
-  bool? _isOnline;
-  bool get isOnline => _isOnline!;
+  bool _isOnline = false;
+  bool get isOnline => _isOnline;
 
   startMonitoring() async {
       await initConnectivity();

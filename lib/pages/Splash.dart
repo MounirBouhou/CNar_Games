@@ -1,3 +1,4 @@
+import 'package:cnargames/colors/custom_colors.dart';
 import 'package:cnargames/config/config.dart';
 import 'package:cnargames/pages/home.dart';
 import 'package:cnargames/utils/next_screen.dart';
@@ -15,7 +16,7 @@ class SplashPage extends StatefulWidget{
 class _SplashPageState extends State<SplashPage>{
 
   Future _afterSplash() async {
-    Future.delayed(Duration(milliseconds: 2000)).then((value) => _goToHomePage());
+    Future.delayed(Duration(milliseconds: 1500)).then((value) => _goToHomePage());
   }
 
   void _goToHomePage() {
@@ -31,6 +32,7 @@ class _SplashPageState extends State<SplashPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: cColors().bg,
       body: Center(
         child: Image(
           height: 212,

@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 class cColors {
-
   final  gray = Color(0xfff5f5f5);
+  final  bg = Color(0xffe7e7e7);
+  final  darkGray = Color(0xff363636);
+  final  noir = Color(0xff222222);
   final  blue = Color(0xff68cbe9);
   final  blueDark = Color(0xff00B0F6);
   final  pink = Color(0xffe085d2);

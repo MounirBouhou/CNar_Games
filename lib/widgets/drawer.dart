@@ -1,5 +1,6 @@
-import 'package:cnargames/Colors/custom_colors.dart';
+import 'package:cnargames/colors/custom_colors.dart';
 import 'package:cnargames/config/config.dart';
+import 'package:cnargames/pages/home.dart';
 import 'package:cnargames/services/app_services.dart';
 import 'package:cnargames/utils/next_screen.dart';
 import 'package:cnargames/widgets/policy.dart';
@@ -10,8 +11,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Directionality(textDirection: TextDirection.rtl,
+    return Directionality(
+        textDirection: TextDirection.rtl,
     child: Drawer(
       child: SingleChildScrollView(
         child: Column(
@@ -20,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
             Container(
                 height: 260,
                 width: double.infinity,
-                color: cColors().yellow,
+                color: cColors().bg,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,11 +46,29 @@ class CustomDrawer extends StatelessWidget {
                   ListTile(
                     isThreeLine: false,
                     contentPadding: EdgeInsets.all(0),
+                    leading: Icon(Icons.home, size: 22,),
+                    horizontalTitleGap: 5,
+                    title: Text(
+                      'الصفحة الرئيسية',
+                      style: TextStyle(
+                        color: cColors().darkGray,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: (){
+                      nextScreen(context, Home());
+                    },
+                  ),
+                  ListTile(
+                    isThreeLine: false,
+                    contentPadding: EdgeInsets.all(0),
                     leading: Icon(Icons.email_outlined, size: 22,),
                     horizontalTitleGap: 5,
                     title: Text(
                       'اتصل بنا',
                       style: TextStyle(
+                        color: cColors().darkGray,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                       ),
@@ -66,6 +85,7 @@ class CustomDrawer extends StatelessWidget {
                     title: Text(
                       'سياسة الخصوصية',
                       style: TextStyle(
+                        color: cColors().darkGray,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                       ),
@@ -78,7 +98,7 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             Divider(
-              color: Colors.grey[600],
+              color: cColors().darkGray,
             ),
           ],
         ),

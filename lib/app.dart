@@ -1,10 +1,12 @@
 
 
+import 'package:cnargames/blocs/category_bloc.dart';
 import 'package:cnargames/pages/Splash.dart';
 import 'package:cnargames/services/connectivity_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'blocs/ad_bloc.dart';
 import 'blocs/new_games_bloc.dart';
 import 'package:cnargames/colors/custom_colors.dart';
 
@@ -15,9 +17,10 @@ class MyApp extends StatelessWidget{
 
     return MultiProvider(
       providers: [
+              ChangeNotifierProvider<CategoryBloc>(create: (context) => CategoryBloc()),
               ChangeNotifierProvider<NewGamesBloc>(create: (context) => NewGamesBloc()),
               ChangeNotifierProvider<ConnectivityProvider>(create: (_) => ConnectivityProvider()),
-              //ChangeNotifierProvider<AdsBloc>(create: (_) => AdsBloc()),
+              ChangeNotifierProvider<AdsBloc>(create: (context) => AdsBloc()),
       ],
 
       child: MaterialApp(
