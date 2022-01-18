@@ -197,15 +197,15 @@ class _HomeState extends State<Home> {
               alignment: Alignment.center,
               child: Text("جهازك الآن متصل بالشبكة", style: TextStyle(
                   color: cColors().pinkDark,
-                  fontSize: 25, fontWeight: FontWeight.w700
+                  fontSize: 22, fontWeight: FontWeight.w700
               ),),
             ),
 
             CupertinoButton(
               pressedOpacity: 0.4,
-              color: cColors().gray,
+              color: cColors().blue,
               child: Text('هيا نلعب !', style: TextStyle(
-                  color: cColors().pinkDark,
+                  color: cColors().gray,
                   fontSize: 25, fontFamily: 'Cairo', fontWeight: FontWeight.w700
               ),),
               onPressed: (){

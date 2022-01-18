@@ -21,7 +21,7 @@ dependencies:
   provider: ^5.0.0 #https://pub.dev/packages/provider/example
   cached_network_image: ^3.0.0 #https://pub.dev/packages/cached_network_image/example
   html_unescape: ^2.0.0
-  webview_flutter: ^2.0.8 #display the html5 games
+  webview_flutter: ^2.8.0 #display the html5 games
   url_launcher: ^6.0.9
   flutter_markdown: ^0.6.2
   carousel_slider: ^4.0.0

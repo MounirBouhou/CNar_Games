@@ -3,7 +3,6 @@
 import 'package:cnargames/blocs/category_bloc.dart';
 import 'package:cnargames/pages/Splash.dart';
 import 'package:cnargames/services/connectivity_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'blocs/ad_bloc.dart';
@@ -27,10 +26,8 @@ class MyApp extends StatelessWidget{
            debugShowCheckedModeBanner: false,
            theme: ThemeData(
              fontFamily: 'Cairo',
-             primaryColor: cColors().blueDark,
-             accentColor: cColors().pinkDark,
+             primaryColor: cColors().blueDark, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: cColors().pinkDark),
            ),
-
            home: SplashPage(),
       ),
          );

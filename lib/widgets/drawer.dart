@@ -34,6 +34,7 @@ class CustomDrawer extends StatelessWidget {
                           fit: BoxFit.contain,
                           image: AssetImage(Config().splash)),
                     ),
+                    SizedBox(height: 20),
                     Text(Config().appName)
 
                   ],

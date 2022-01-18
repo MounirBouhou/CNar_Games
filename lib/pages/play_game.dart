@@ -46,6 +46,8 @@ class _GamePageState extends State<PlayGame> with WidgetsBindingObserver {
                           willLeave = false;
                           Navigator.of(context).pop();
                           Navigator.pop(context);
+                          Future.delayed(Duration(milliseconds: 0))
+                              .then((value) => context.read<AdsBloc>().showInterstitialAd());
                         },
                         child: Text('نعم', style: TextStyle(color: cColors().gray))),
 
@@ -113,8 +115,8 @@ class _GamePageState extends State<PlayGame> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final Games? gamz = widget.gamesData;
 
-    var w = int.parse(gamz!.width!);
-    var h = int.parse(gamz.height!);
+    var w = double.parse(gamz!.width!);
+    var h = double.parse(gamz.height!);
     if (w > h) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
