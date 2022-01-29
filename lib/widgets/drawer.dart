@@ -1,10 +1,17 @@
+import 'package:cnargames/blocs/category_bloc.dart';
+import 'package:cnargames/blocs/featured_games_bloc.dart';
+import 'package:cnargames/blocs/new_games_bloc.dart';
+import 'package:cnargames/blocs/theme_bloc.dart';
 import 'package:cnargames/colors/custom_colors.dart';
 import 'package:cnargames/config/config.dart';
+import 'package:cnargames/config/strings.dart';
+import 'package:cnargames/pages/bookmark.dart';
 import 'package:cnargames/pages/home.dart';
 import 'package:cnargames/services/app_services.dart';
 import 'package:cnargames/utils/next_screen.dart';
 import 'package:cnargames/widgets/policy.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -21,22 +28,20 @@ class CustomDrawer extends StatelessWidget {
             Container(
                 height: 260,
                 width: double.infinity,
-                color: cColors().bg,
+                color: Theme.of(context).iconTheme.color,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 3),
                       child: Image(
                           height: 100,
                           width: 100,
                           fit: BoxFit.contain,
                           image: AssetImage(Config().splash)),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
                     Text(Config().appName)
-
                   ],
                 )
             ),
@@ -47,32 +52,74 @@ class CustomDrawer extends StatelessWidget {
                   ListTile(
                     isThreeLine: false,
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Icons.home, size: 22,),
+                    leading: Icon(Icons.home, size: 22,color: Theme.of(context).iconTheme.color,),
                     horizontalTitleGap: 5,
-                    title: Text(
-                      'الصفحة الرئيسية',
-                      style: TextStyle(
-                        color: cColors().darkGray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    title: Text(st.home,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     onTap: (){
-                      nextScreen(context, Home());
+                      context.read<NewGamesBloc>().setScroll(false);
+                      context.read<NewGamesBloc>().clearGames();
+                      context.read<FeaturedGamesBloc>().clearGames();
+                      context.read<CategoryBloc>().clearGames();
+                      nextScreenReplace(context, Home());
                     },
                   ),
+
                   ListTile(
                     isThreeLine: false,
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Icons.email_outlined, size: 22,),
+                    leading: Icon(Icons.favorite_sharp, size: 22, color: cColors().yellowDark,),
                     horizontalTitleGap: 5,
-                    title: Text(
-                      'اتصل بنا',
-                      style: TextStyle(
-                        color: cColors().darkGray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    title: Text(st.favorite,
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    onTap: (){
+                      nextScreen(context, Bookmark());
+                    },
+                  ),
+
+                  SizedBox(height: 10),
+                  Divider(
+                    thickness: 0.3,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  SizedBox(height: 10),
+
+                  ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    horizontalTitleGap: 5,
+                    leading: Icon(
+                      Icons.light_mode_sharp,
+                      size: 20,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    title: Text(st.lightMode,
+                      style:Theme.of(context).textTheme.headline2,
+                    ),
+                    trailing: Switch(
+                        activeColor: Theme.of(context).iconTheme.color,
+                        value: context.watch<ThemeBloc>().darkTheme!,
+                        onChanged: (bool) {
+                          context.read<ThemeBloc>().toggleTheme();
+                        }),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Divider(
+                    thickness: 0.3,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  SizedBox(height: 10),
+
+                  ListTile(
+                    isThreeLine: false,
+                    contentPadding: EdgeInsets.all(0),
+                    leading: Icon(Icons.email_outlined, size: 22,color: Theme.of(context).iconTheme.color,),
+                    horizontalTitleGap: 5,
+                    title: Text(st.messageUs,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     onTap: (){
                       Navigator.pop(context);
@@ -81,26 +128,24 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Icons.policy_outlined, size: 22,),
+                    leading: Icon(Icons.policy_outlined, size: 22,color: Theme.of(context).iconTheme.color,),
                     horizontalTitleGap: 5,
-                    title: Text(
-                      'سياسة الخصوصية',
-                      style: TextStyle(
-                        color: cColors().darkGray,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    title: Text(st.policy,
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     onTap: (){
                       nextScreenPopup(context, Policy());
                     },
                   ),
+
+
+
+
+
                 ],
               ),
             ),
-            Divider(
-              color: cColors().darkGray,
-            ),
+
           ],
         ),
       ),

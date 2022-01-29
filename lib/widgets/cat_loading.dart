@@ -1,4 +1,5 @@
 import 'package:cnargames/colors/custom_colors.dart';
+import 'package:cnargames/config/strings.dart';
 import 'package:cnargames/utils/custom_cache_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,22 +15,26 @@ class CatLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 60,
+      height: MediaQuery.of(context).size.height / 2,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Opacity(opacity: 0.1,
-          child: CustomCacheImage(img: catThumb)),
-          // SizedBox(height: 40,),
-          // CircularProgressIndicator(color: cColors().pinkDark, backgroundColor: cColors().gray, strokeWidth: 2),
-          SizedBox(height: 15,),
-          Text("جار التحميل...",
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w300,
-                color: cColors().pinkDark
-            ),),
+          Expanded(
+            child: Container(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Opacity(
+                    opacity: 0.4,
+                    child: CustomCacheImage(img: catThumb, w: 120, h: 120)),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            st.loading,
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ],
       ),
     );
